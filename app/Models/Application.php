@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Application extends Model
+{
+    protected $table = 'tblapplications';
+
+   protected $fillable = [
+    'student_id','sex','birthdate','last_name','given_name','middle_name','ext_name',
+    'program_name','year_level',
+    'father_last_name','father_given_name','father_middle_name',
+    'mother_last_name','mother_given_name','mother_middle_name',
+    'street_barangay','zipcode','contact_number','email',
+    'disability','indigenous_group', 'status'
+    ];
+}

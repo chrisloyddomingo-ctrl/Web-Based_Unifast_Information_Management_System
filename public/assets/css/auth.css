@@ -1,0 +1,29 @@
+/* ===== Unifast Auth Pages (Login/Register) ===== */
+body {
+    background: #f6f7fb;
+}
+
+.brand-orange {
+    background: #ff7a00;
+}
+
+.btn-unifast {
+    background: #ff7a00;
+    border-color: #ff7a00;
+}
+
+.btn-unifast:hover {
+    background: #e66e00;
+    border-color: #e66e00;
+}
+
+.logo-img {
+    height: 250px;
+    width: auto;
+}
+
+@media (max-width: 768px) {
+    .logo-img {
+        height: 55px;
+    }
+}

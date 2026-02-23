@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grantees Application</title>
+
+  {{-- Put your css inside public/css/application.css --}}
+  <link rel="stylesheet" href="{{ asset('css/application.css') }}?v={{ time() }}" />
+</head>
+<body>
+  <main class="wrap">
+    <header class="header header-flex">
+      <img src="{{ asset('assets/img/ifsu.png') }}" alt="IFSU Logo" class="Ifsulogo">
+      <h1 class="headerForm">Grantees Application Form</h1>
+      <img src="{{ asset('assets/img/logopng.png') }}" alt="UNIFAST Logo" class="Unifastlogo">
+    </header>
+
+    {{-- SUCCESS MESSAGE --}}
+    @if (session('success'))
+      <div class="alert success">
+        {{ session('success') }}
+      </div>
+    @endif
+
+    {{-- ERROR SUMMARY (optional) --}}
+    @if ($errors->any())
+      <div class="alert error">
+        Please fix the highlighted fields.
+      </div>
+    @endif
+
+    <form method="POST" action="{{ route('apply.store') }}" novalidate>
+      @csrf
+
+      <section class="card">
+        <div class="cardHead">
+          <h2>Student Information</h2><span class="step">Step 1 of 5</span>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label>Student ID <span class="req">*</span></label>
+            <input name="student_id" type="text" value="{{ old('student_id') }}" placeholder="e.g., 23-123456" />
+            @error('student_id') <div class="error">{{ $message }}</div> @enderror
+          </div>
+
+          <div class="col">
+            <label>Sex <span class="req">*</span></label>
+            <select name="sex">
+              <option value="">-- Select --</option>
+              <option value="M" @selected(old('sex')==='M')>Male</option>
+              <option value="F" @selected(old('sex')==='F')>Female</option>
+            </select>
+            @error('sex') <div class="error">{{ $message }}</div> @enderror
+          </div>
+
+          <div class="col">
+            <label>Birthdate <span class="req">*</span></label>
+            <input name="birthdate" type="date" value="{{ old('birthdate') }}" />
+            @error('birthdate') <div class="error">{{ $message }}</div> @enderror
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label>Last Name <span class="req">*</span></label>
+            <input name="last_name" type="text" value="{{ old('last_name') }}" />
+            @error('last_name') <div class="error">{{ $message }}</div> @enderror
+          </div>
+
+          <div class="col">
+            <label>Given Name <span class="req">*</span></label>
+            <input name="given_name" type="text" value="{{ old('given_name') }}" />
+            @error('given_name') <div class="error">{{ $message }}</div> @enderror
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label>Middle Name <span class="req">*</span></label>
+            <input name="middle_name" type="text" value="{{ old('middle_name') }}" />
+            @error('middle_name') <div class="error">{{ $message }}</div> @enderror
+          </div>
+
+          <div class="col">
+            <label>Ext. Name <span class="muted">(optional)</span></label>
+            <input name="ext_name" type="text" value="{{ old('ext_name') }}" />
+            @error('ext_name') <div class="error">{{ $message }}</div> @enderror
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cardHead">
+          <h2>Student Profile</h2><span class="step">Step 2 of 5</span>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label>Complete Program Name <span class="req">*</span></label>
+            <select name="program_name" id="programSelect">
+              <option value="">-- Select Program --</option>
+              <option value="BS Information Technology" @selected(old('program_name')==='BS Information Technology')>BS Information Technology</option>
+              <option value="ACT" @selected(old('program_name')==='ACT')>ACT</option>
+              <option value="BS Education" @selected(old('program_name')==='BS Education')>BS Education</option>
+              <option value="BS Criminology" @selected(old('program_name')==='BS Criminology')>BS Criminology</option>
+              <option value="BS Psychology" @selected(old('program_name')==='BS Psychology')>BS Psychology</option>
+              <option value="BS Political Science" @selected(old('program_name')==='BS Political Science')>BS Political Science</option>
+              <option value="BS Agriculture" @selected(old('program_name')==='BS Agriculture')>BS Agriculture</option>
+              <option value="__OTHER__" @selected(old('program_name')==='__OTHER__')>Other (Please specify)</option>
+            </select>
+            @error('program_name') <div class="error">{{ $message }}</div> @enderror
+
+            <div id="programOtherWrap" class="{{ old('program_name')==='__OTHER__' ? '' : 'hidden' }}">
+              <label style="margin-top:10px;">Specify Program <span class="req">*</span></label>
+              <input name="program_name_other" id="programOther" type="text" value="{{ old('program_name_other') }}" />
+              @error('program_name_other') <div class="error">{{ $message }}</div> @enderror
+            </div>
+          </div>
+
+          <div class="col">
+            <label>Year Level <span class="req">*</span></label>
+            <select name="year_level">
+              <option value="">-- Select Year Level --</option>
+              <option value="1st Year" @selected(old('year_level')==='1st Year')>1st Year</option>
+              <option value="2nd Year" @selected(old('year_level')==='2nd Year')>2nd Year</option>
+              <option value="3rd Year" @selected(old('year_level')==='3rd Year')>3rd Year</option>
+              <option value="4th Year" @selected(old('year_level')==='4th Year')>4th Year</option>
+              <option value="Irregular" @selected(old('year_level')==='Irregular')>Irregular</option>
+            </select>
+            @error('year_level') <div class="error">{{ $message }}</div> @enderror
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cardHead">
+          <h2>Father's Name</h2><span class="step">Step 3 of 5</span>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label>Last Name <span class="req">*</span></label>
+            <input name="father_last_name" type="text" value="{{ old('father_last_name') }}" />
+            @error('father_last_name') <div class="error">{{ $message }}</div> @enderror
+          </div>
+          <div class="col">
+            <label>Given Name <span class="req">*</span></label>
+            <input name="father_given_name" type="text" value="{{ old('father_given_name') }}" />
+            @error('father_given_name') <div class="error">{{ $message }}</div> @enderror
+          </div>
+          <div class="col">
+            <label>Middle Name <span class="req">*</span></label>
+            <input name="father_middle_name" type="text" value="{{ old('father_middle_name') }}" />
+            @error('father_middle_name') <div class="error">{{ $message }}</div> @enderror
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cardHead">
+          <h2>Mother's Maiden Name</h2><span class="step">Step 4 of 5</span>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label>Last Name <span class="req">*</span></label>
+            <input name="mother_last_name" type="text" value="{{ old('mother_last_name') }}" />
+            @error('mother_last_name') <div class="error">{{ $message }}</div> @enderror
+          </div>
+          <div class="col">
+            <label>Given Name <span class="req">*</span></label>
+            <input name="mother_given_name" type="text" value="{{ old('mother_given_name') }}" />
+            @error('mother_given_name') <div class="error">{{ $message }}</div> @enderror
+          </div>
+          <div class="col">
+            <label>Middle Name <span class="req">*</span></label>
+            <input name="mother_middle_name" type="text" value="{{ old('mother_middle_name') }}" />
+            @error('mother_middle_name') <div class="error">{{ $message }}</div> @enderror
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cardHead">
+          <h2>Address & Contact</h2><span class="step">Step 5 of 5</span>
+        </div>
+
+        <label>Street and Barangay <span class="req">*</span></label>
+        <input name="street_barangay" type="text" value="{{ old('street_barangay') }}" />
+        @error('street_barangay') <div class="error">{{ $message }}</div> @enderror
+
+        <div class="row">
+          <div class="col">
+            <label>Zipcode <span class="req">*</span></label>
+            <input name="zipcode" type="text" value="{{ old('zipcode') }}" />
+            @error('zipcode') <div class="error">{{ $message }}</div> @enderror
+          </div>
+          <div class="col">
+            <label>Contact Number <span class="req">*</span></label>
+            <input name="contact_number" type="text" value="{{ old('contact_number') }}" />
+            @error('contact_number') <div class="error">{{ $message }}</div> @enderror
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label>Email Address <span class="req">*</span></label>
+            <input name="email" type="text" value="{{ old('email') }}" />
+            @error('email') <div class="error">{{ $message }}</div> @enderror
+          </div>
+
+          <div class="col">
+            <label>Disability <span class="muted">(optional)</span></label>
+            <input name="disability" type="text" value="{{ old('disability') }}" />
+            @error('disability') <div class="error">{{ $message }}</div> @enderror
+          </div>
+        </div>
+
+        <label>Indigenous People Group <span class="muted">(optional)</span></label>
+        <input name="indigenous_group" type="text" value="{{ old('indigenous_group') }}" />
+        @error('indigenous_group') <div class="error">{{ $message }}</div> @enderror
+
+        <div class="actions">
+          <button type="reset" class="btn secondary">Clear</button>
+          <button type="submit" class="btn">Submit</button>
+        </div>
+      </section>
+    </form>
+
+    <footer class="footer">
+      <small>© Web-Based UniFAST Management System</small>
+    </footer>
+  </main>
+
+  <script>
+    // show/hide "Other program" input (no separate JS file needed)
+    const programSelect = document.getElementById('programSelect');
+    const programOtherWrap = document.getElementById('programOtherWrap');
+
+    function toggleOther() {
+      if (programSelect.value === '__OTHER__') {
+        programOtherWrap.classList.remove('hidden');
+      } else {
+        programOtherWrap.classList.add('hidden');
+      }
+    }
+
+    programSelect?.addEventListener('change', toggleOther);
+    toggleOther();
+  </script>
+</body>
+</html>

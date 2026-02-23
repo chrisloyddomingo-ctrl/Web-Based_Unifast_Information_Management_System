@@ -1,0 +1,303 @@
+/* =========================
+   Application List UI Polish
+   Works with AdminLTE + Bootstrap
+   ========================= */
+
+:root{
+  --app-primary: #2563eb;   /* blue */
+  --app-accent:  #f59e0b;   /* amber */
+  --app-success: #16a34a;   /* green */
+  --app-danger:  #dc2626;   /* red */
+  --app-muted:   #6b7280;   /* gray */
+  --app-bg:      #f8fafc;   /* light */
+  --app-card:    #ffffff;
+  --app-border:  #e5e7eb;
+  --app-shadow:  0 10px 25px rgba(0,0,0,.06);
+}
+
+/* Page spacing (AdminLTE sometimes tight) */
+.content-wrapper{
+  background: var(--app-bg);
+}
+
+.content-header h1{
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+
+/* Card polish */
+.card{
+  border: 1px solid var(--app-border);
+  border-radius: 14px;
+  box-shadow: var(--app-shadow);
+  overflow: hidden;
+}
+
+.card-header{
+  background: linear-gradient(135deg, rgba(37,99,235,.10), rgba(245,158,11,.10));
+  border-bottom: 1px solid var(--app-border);
+}
+
+.card-title{
+  font-weight: 700;
+}
+
+.card-tools .btn{
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+/* Alerts (session success/error) */
+.alert-success-custom,
+.alert-error-custom{
+  padding: 12px 14px;
+  margin: 12px 0 16px 0;
+  border-radius: 12px;
+  border: 1px solid var(--app-border);
+  box-shadow: 0 6px 18px rgba(0,0,0,.05);
+  font-weight: 600;
+}
+
+.alert-success-custom{
+  background: rgba(22,163,74,.10);
+  color: #0f5132;
+  border-color: rgba(22,163,74,.25);
+}
+
+.alert-error-custom{
+  background: rgba(220,38,38,.10);
+  color: #842029;
+  border-color: rgba(220,38,38,.25);
+}
+
+/* Table improvements */
+.table{
+  margin-bottom: 0;
+}
+
+.table thead th{
+  border-bottom: 0 !important;
+  vertical-align: middle !important;
+}
+
+.table-bordered{
+  border: 1px solid var(--app-border);
+}
+
+.table-bordered td,
+.table-bordered th{
+  border: 1px solid var(--app-border) !important;
+}
+
+.table-hover tbody tr:hover{
+  background: rgba(37,99,235,.06);
+  transition: background .15s ease;
+}
+
+.table tbody td{
+  vertical-align: middle !important;
+}
+
+.table tbody tr:nth-child(even){
+  background: rgba(148,163,184,.10); /* subtle zebra */
+}
+
+/* Replace your bg-orange header with nicer one (still compatible) */
+.bg-orange{
+  background: linear-gradient(135deg, #f59e0b, #fb923c) !important;
+}
+.bg-orange.text-white,
+.bg-orange .text-white{
+  color: #fff !important;
+}
+
+/* Badges (status) */
+.badge{
+  padding: .45em .75em;
+  border-radius: 999px;
+  font-weight: 800;
+  letter-spacing: .4px;
+}
+
+.badge-warning{
+  background: rgba(245,158,11,.18) !important;
+  color: #92400e !important;
+  border: 1px solid rgba(245,158,11,.35);
+}
+
+.badge-success{
+  background: rgba(22,163,74,.18) !important;
+  color: #14532d !important;
+  border: 1px solid rgba(22,163,74,.35);
+}
+
+.badge-danger{
+  background: rgba(220,38,38,.18) !important;
+  color: #7f1d1d !important;
+  border: 1px solid rgba(220,38,38,.35);
+}
+
+.badge-secondary{
+  background: rgba(107,114,128,.18) !important;
+  color: #374151 !important;
+  border: 1px solid rgba(107,114,128,.35);
+}
+
+/* Buttons: make small actions look neat */
+.btn-group-sm > .btn,
+.btn.btn-sm{
+  border-radius: 10px !important;
+  font-weight: 700;
+}
+
+.btn-info{
+  background: #0ea5e9 !important;
+  border-color: #0ea5e9 !important;
+}
+
+.btn-warning{
+  background: #f59e0b !important;
+  border-color: #f59e0b !important;
+  color: #111827 !important;
+}
+
+.btn-secondary{
+  background: #64748b !important;
+  border-color: #64748b !important;
+}
+
+.btn-danger{
+  background: #ef4444 !important;
+  border-color: #ef4444 !important;
+}
+
+.btn-success{
+  background: #22c55e !important;
+  border-color: #22c55e !important;
+}
+
+/* Button hover polish */
+.btn:hover{
+  filter: brightness(.96);
+  transform: translateY(-1px);
+  transition: all .12s ease;
+}
+
+/* =========================
+   ✅ ACTIONS COLUMN FIX
+   - no dikit-dikit buttons
+   - consistent size
+   - responsive wrap
+   ========================= */
+
+.action-buttons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;                 /* spacing between buttons */
+  flex-wrap: wrap;          /* wraps on small screens */
+}
+
+/* make forms behave like buttons inside flex */
+.action-form{
+  margin: 0 !important;
+  padding: 0 !important;
+  display: inline-flex;
+}
+
+/* uniform button sizing for icons */
+.action-btn{
+  width: 36px;
+  height: 36px;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px !important;
+  line-height: 1;
+}
+
+/* icon size consistent */
+.action-btn i{
+  font-size: 14px;
+}
+
+/* optional: keep actions column readable */
+td .action-buttons{
+  min-width: 190px; /* adjust if needed */
+}
+
+/* =========================
+   ✅ Approve/Reject TH icon polish
+   ========================= */
+
+/* Make header icons aligned + consistent */
+th .badge i{
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+/* If you want the Approve/Reject header to not wrap weirdly */
+th{
+  white-space: nowrap;
+}
+
+/* Modal polish */
+.modal-content{
+  border-radius: 16px;
+  border: 1px solid var(--app-border);
+  box-shadow: 0 20px 60px rgba(0,0,0,.18);
+}
+
+.modal-header{
+  border-bottom: 1px solid var(--app-border);
+}
+
+.modal-footer{
+  border-top: 1px solid var(--app-border);
+}
+
+.modal-title{
+  font-weight: 800;
+}
+
+/* Form controls */
+.form-control, .custom-select, select.form-control{
+  border-radius: 12px;
+  border: 1px solid var(--app-border);
+  box-shadow: none !important;
+}
+
+.form-control:focus,
+select.form-control:focus{
+  border-color: rgba(37,99,235,.55);
+  box-shadow: 0 0 0 .2rem rgba(37,99,235,.15) !important;
+}
+
+hr{
+  border-top: 1px solid var(--app-border);
+}
+
+/* Pagination center looks better */
+.pagination{
+  margin-top: 14px;
+}
+
+.d-flex.justify-content-center{
+  padding-top: 12px;
+}
+
+/* Small responsive improvement for table */
+@media (max-width: 991px){
+  .table{
+    font-size: 13px;
+  }
+  .card-tools .btn{
+    margin-top: 8px;
+  }
+
+  /* keep actions neat on smaller widths */
+  td .action-buttons{
+    min-width: auto;
+  }
+}
