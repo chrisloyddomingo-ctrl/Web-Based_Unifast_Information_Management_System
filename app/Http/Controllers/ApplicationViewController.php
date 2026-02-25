@@ -9,7 +9,11 @@ class ApplicationViewController extends Controller
 {
     public function index()
     {
-        $applications = Application::orderBy('id', 'desc')->paginate(10);
+        // pending first then latest
+        $applications = Application::orderByRaw("CASE WHEN status = 'pending' THEN 0 ELSE 1 END")
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+
         return view('application_list', compact('applications'));
     }
 
@@ -72,8 +76,7 @@ class ApplicationViewController extends Controller
             'disability' => $validated['a_disability'] ?? null,
             'indigenous_group' => $validated['a_indigenous_group'] ?? null,
 
-            // ✅ always pending kapag bagong create
-            'status' => 'pending'
+            'status' => 'pending',
         ]);
 
         return back()->with('success', 'Application created successfully!');
@@ -81,11 +84,12 @@ class ApplicationViewController extends Controller
 
     public function approve(Request $r)
     {
-        $r->validate([
-            'id' => 'required|integer|exists:tblapplication,id',
+        $validated = $r->validate([
+            // ✅ FIXED: correct table name tblapplications
+            'id' => 'required|integer|exists:tblapplications,id',
         ]);
 
-        $app = Application::findOrFail($r->id);
+        $app = Application::findOrFail($validated['id']);
 
         if (($app->status ?? 'pending') !== 'pending') {
             return back()->with('error', 'Application already processed.');
@@ -99,11 +103,12 @@ class ApplicationViewController extends Controller
 
     public function reject(Request $r)
     {
-        $r->validate([
-            'id' => 'required|integer|exists:tblapplication,id',
+        $validated = $r->validate([
+            // ✅ FIXED: correct table name tblapplications
+            'id' => 'required|integer|exists:tblapplications,id',
         ]);
 
-        $app = Application::findOrFail($r->id);
+        $app = Application::findOrFail($validated['id']);
 
         if (($app->status ?? 'pending') !== 'pending') {
             return back()->with('error', 'Application already processed.');
@@ -128,7 +133,8 @@ class ApplicationViewController extends Controller
     public function update(Request $r)
     {
         $validated = $r->validate([
-            'ea_id' => 'required|integer|exists:tblapplication,id',
+            // ✅ FIXED: correct table name tblapplications
+            'ea_id' => 'required|integer|exists:tblapplications,id',
 
             'ea_last_name' => 'required|string|max:100',
             'ea_given_name' => 'required|string|max:100',
@@ -195,7 +201,8 @@ class ApplicationViewController extends Controller
     public function destroy(Request $r)
     {
         $validated = $r->validate([
-            'da_id' => 'required|integer|exists:tblapplication,id',
+            // ✅ FIXED: correct table name tblapplications
+            'da_id' => 'required|integer|exists:tblapplications,id',
         ]);
 
         Application::where('id', $validated['da_id'])->delete();

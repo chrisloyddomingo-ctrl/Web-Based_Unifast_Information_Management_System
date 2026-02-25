@@ -8,6 +8,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ApplicationViewController;
 use App\Http\Controllers\GranteeListController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\ApplicationStatusController;
+
+use App\Http\Controllers\StudentAuthController;
+use App\Http\Controllers\StudentDashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,9 +22,27 @@ Route::get('/apply', [ApplicationController::class, 'create'])->name('apply.crea
 Route::post('/apply', [ApplicationController::class, 'store'])->name('apply.store');
 Route::get('/apply/submitted', [ApplicationController::class, 'submitted'])->name('apply.submitted');
 
+// ✅ PUBLIC CHECK STATUS ROUTE (NO LOGIN REQUIRED)
+Route::get('/application/status', [ApplicationStatusController::class, 'index'])
+    ->name('application.status');
+
+
+// ✅ STUDENT ROUTES (PUBLIC LOGIN, PROTECTED DASHBOARD)  ✅ MOVE OUTSIDE auth GROUP
+Route::prefix('student')->group(function () {
+    Route::get('/login', [StudentAuthController::class, 'showLogin'])->name('student.login');
+    Route::post('/login', [StudentAuthController::class, 'login'])->name('student.login.submit');
+    Route::post('/logout', [StudentAuthController::class, 'logout'])->name('student.logout');
+
+    Route::get('/dashboard', [StudentDashboardController::class, 'index'])
+        ->name('student.dashboard')
+        ->middleware('auth:student');
+});
+
+
+// ✅ EMPLOYEE/ADMIN AUTH ROUTES
 Auth::routes();
 
-// ✅ AUTH ONLY ROUTES
+// ✅ AUTH ONLY ROUTES (EMPLOYEE/ADMIN)
 Route::middleware('auth')->group(function () {
 
     // Dashboard
@@ -39,9 +61,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/applications/{id}/show', [ApplicationViewController::class, 'show'])->name('applications.show');
     Route::post('/applications/update', [ApplicationViewController::class, 'update'])->name('applications.update');
     Route::post('/applications/destroy', [ApplicationViewController::class, 'destroy'])->name('applications.destroy');
+
     // approve / reject actions
-    Route::post('/applications/approve', [ApplicationController::class, 'approve'])->name('applications.approve');
-    Route::post('/applications/reject', [ApplicationController::class, 'reject'])->name('applications.reject');
+    Route::post('/applications/approve', [ApplicationViewController::class, 'approve'])->name('applications.approve');
+    Route::post('/applications/reject', [ApplicationViewController::class, 'reject'])->name('applications.reject');
 
     Route::get('/registration_pagination', [HomeController::class, 'registration_pagination'])->name('registration_pagination');
     Route::get('/fileupload_pagination', [HomeController::class, 'fileupload_pagination'])->name('fileupload_pagination');

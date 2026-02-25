@@ -17,14 +17,15 @@
         <div class="col-11 col-sm-9 col-md-6 col-lg-5">
 
             <div class="text-center mb-4">
-                <img src="{{ asset('assets/img/logopng.png') }}" class="logo-img" alt="Unifast Logo">
+                <img src="{{ asset('assets/img/ifsu_logo.png') }}" class="logo-img" alt="Unifast Logo">
+                <img src="{{ asset('assets/img/unifastLogoclear.png') }}" class="logo-img" alt="Unifast Logo">
                 <h4 class="mt-2 fw-bold mb-0">UNIFAST</h4>
                 <small class="text-muted">Web-based Unifast Management System</small>
             </div>
 
             <div class="card shadow border-0">
                 <div class="card-header brand-orange text-white text-center py-3 border-0">
-                    <strong>LOGIN FORM</strong>
+                    <strong>WUIMS Admin Dashboard</strong>
                 </div>
 
                 <div class="card-body p-4">

@@ -68,13 +68,13 @@
         <div class="row">
           <div class="col">
             <label>Last Name <span class="req">*</span></label>
-            <input name="last_name" type="text" value="{{ old('last_name') }}" />
+            <input name="last_name" type="text" value="{{ old('last_name') }}" placeholder="Dela Cruz"/>
             @error('last_name') <div class="error">{{ $message }}</div> @enderror
           </div>
 
           <div class="col">
             <label>Given Name <span class="req">*</span></label>
-            <input name="given_name" type="text" value="{{ old('given_name') }}" />
+            <input name="given_name" type="text" value="{{ old('given_name') }}" placeholder="Juan"/>
             @error('given_name') <div class="error">{{ $message }}</div> @enderror
           </div>
         </div>
@@ -82,7 +82,7 @@
         <div class="row">
           <div class="col">
             <label>Middle Name <span class="req">*</span></label>
-            <input name="middle_name" type="text" value="{{ old('middle_name') }}" />
+            <input name="middle_name" type="text" value="{{ old('middle_name') }}" placeholder="Santos"/>
             @error('middle_name') <div class="error">{{ $message }}</div> @enderror
           </div>
 
@@ -145,17 +145,17 @@
         <div class="row">
           <div class="col">
             <label>Last Name <span class="req">*</span></label>
-            <input name="father_last_name" type="text" value="{{ old('father_last_name') }}" />
+            <input name="father_last_name" type="text" value="{{ old('father_last_name') }}" placeholder="Dela Cruz"/>
             @error('father_last_name') <div class="error">{{ $message }}</div> @enderror
           </div>
           <div class="col">
             <label>Given Name <span class="req">*</span></label>
-            <input name="father_given_name" type="text" value="{{ old('father_given_name') }}" />
+            <input name="father_given_name" type="text" value="{{ old('father_given_name') }}" placeholder="Juanito"/>
             @error('father_given_name') <div class="error">{{ $message }}</div> @enderror
           </div>
           <div class="col">
             <label>Middle Name <span class="req">*</span></label>
-            <input name="father_middle_name" type="text" value="{{ old('father_middle_name') }}" />
+            <input name="father_middle_name" type="text" value="{{ old('father_middle_name') }}" placeholder="Perez"/>
             @error('father_middle_name') <div class="error">{{ $message }}</div> @enderror
           </div>
         </div>
@@ -169,17 +169,17 @@
         <div class="row">
           <div class="col">
             <label>Last Name <span class="req">*</span></label>
-            <input name="mother_last_name" type="text" value="{{ old('mother_last_name') }}" />
+            <input name="mother_last_name" type="text" value="{{ old('mother_last_name') }}" placeholder="Santos"/>
             @error('mother_last_name') <div class="error">{{ $message }}</div> @enderror
           </div>
           <div class="col">
             <label>Given Name <span class="req">*</span></label>
-            <input name="mother_given_name" type="text" value="{{ old('mother_given_name') }}" />
+            <input name="mother_given_name" type="text" value="{{ old('mother_given_name') }}" placeholder="Maria"/>
             @error('mother_given_name') <div class="error">{{ $message }}</div> @enderror
           </div>
           <div class="col">
             <label>Middle Name <span class="req">*</span></label>
-            <input name="mother_middle_name" type="text" value="{{ old('mother_middle_name') }}" />
+            <input name="mother_middle_name" type="text" value="{{ old('mother_middle_name') }}" placeholder="Assuncion"/>
             @error('mother_middle_name') <div class="error">{{ $message }}</div> @enderror
           </div>
         </div>
@@ -191,18 +191,18 @@
         </div>
 
         <label>Street, Barangay, Municipality, Province <span class="req">*</span></label>
-        <input name="street_barangay" type="text" value="{{ old('street_barangay') }}" />
+        <input name="street_barangay" type="text" value="{{ old('street_barangay') }}" placeholder="Purok 2, Turod, Panopdopan, Lamut, Ifugao"/>
         @error('street_barangay') <div class="error">{{ $message }}</div> @enderror
 
         <div class="row">
           <div class="col">
             <label>Zipcode <span class="req">*</span></label>
-            <input name="zipcode" type="text" value="{{ old('zipcode') }}" />
+            <input name="zipcode" type="text" value="{{ old('zipcode') }}" placeholder="2600"/>
             @error('zipcode') <div class="error">{{ $message }}</div> @enderror
           </div>
           <div class="col">
             <label>Contact Number <span class="req">*</span></label>
-            <input name="contact_number" type="text" value="{{ old('contact_number') }}" />
+            <input name="contact_number" type="text" value="{{ old('contact_number') }}" placeholder="09123456789"/>
             @error('contact_number') <div class="error">{{ $message }}</div> @enderror
           </div>
         </div>
@@ -210,7 +210,7 @@
         <div class="row">
           <div class="col">
             <label>Email Address <span class="req">*</span></label>
-            <input name="email" type="text" value="{{ old('email') }}" />
+            <input name="email" type="text" value="{{ old('email') }}" placeholder="juandelacruz@gmail.com"/>
             @error('email') <div class="error">{{ $message }}</div> @enderror
           </div>
 

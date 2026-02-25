@@ -85,4 +85,41 @@ class ApplicationController extends Controller
         // ✅ Pass application to blade
         return view('apply.submitted', compact('application'));
     }
+    public function approve(Request $request)
+    {
+    $request->validate([
+        'id' => ['required', 'integer', 'exists:applications,id'],
+    ]);
+
+    $app = Application::findOrFail($request->id);
+
+    // Optional: only allow if pending
+    if (($app->status ?? 'pending') !== 'pending') {
+        return back()->with('error', 'This application is no longer pending.');
+    }
+
+    $app->status = 'approved';
+    $app->save();
+
+    return back()->with('success', 'Application approved successfully.');
+    }
+
+    public function reject(Request $request)
+    {
+    $request->validate([
+        'id' => ['required', 'integer', 'exists:applications,id'],
+    ]);
+
+    $app = Application::findOrFail($request->id);
+
+    // Optional: only allow if pending
+    if (($app->status ?? 'pending') !== 'pending') {
+        return back()->with('error', 'This application is no longer pending.');
+    }
+
+    $app->status = 'rejected';
+    $app->save();
+
+    return back()->with('success', 'Application rejected successfully.');
+    }
 }
