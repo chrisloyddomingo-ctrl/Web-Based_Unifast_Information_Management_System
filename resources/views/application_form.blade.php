@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Grantees Application</title>
 
-  {{-- Put your css inside public/css/application.css --}}
   <link rel="stylesheet" href="{{ asset('css/application.css') }}?v={{ time() }}" />
 </head>
 <body>
@@ -132,6 +131,34 @@
             @error('year_level') <div class="error">{{ $message }}</div> @enderror
           </div>
         </div>
+
+        <div class="row">
+          <div class="col">
+            <label>Are you a First Generation College Student? <span class="req">*</span></label>
+
+            <div style="margin-top:5px;">
+              <label>
+                <input type="radio" name="first_generation" value="1"
+                  {{ old('first_generation') === '1' ? 'checked' : '' }} required>
+                Yes
+              </label>
+
+              <label style="margin-left:15px;">
+                <input type="radio" name="first_generation" value="0"
+                  {{ old('first_generation') === '0' ? 'checked' : '' }}>
+                No
+              </label>
+            </div>
+
+            <small class="text-muted">
+              Select Yes if neither of your parents attended college.
+            </small>
+
+            @error('first_generation')
+              <div class="error">{{ $message }}</div>
+            @enderror
+          </div>
+        </div>
       </section>
 
       <section class="card">
@@ -235,7 +262,6 @@
   </main>
 
   <script>
-    // show/hide "Other program" input (no separate JS file needed)
     const programSelect = document.getElementById('programSelect');
     const programOtherWrap = document.getElementById('programOtherWrap');
 

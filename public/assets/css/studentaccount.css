@@ -1,0 +1,170 @@
+body{
+background:#f4f6f9;
+font-family:'Segoe UI', sans-serif;
+overflow-x:hidden;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+top:0;
+left:0;
+width:240px;
+height:100vh;
+background:#1f2937;
+color:white;
+padding-top:20px;
+transition:0.3s;
+z-index:1000;
+overflow:hidden;
+}
+
+/* COLLAPSED SIDEBAR */
+
+.sidebar.collapsed{
+width:70px;
+}
+
+/* LOGO */
+
+.logo{
+text-align:center;
+margin-bottom:25px;
+}
+
+.logo img{
+width:45px;
+}
+
+/* MENU */
+
+.sidebar a{
+display:flex;
+align-items:center;
+padding:12px 20px;
+color:#d1d5db;
+text-decoration:none;
+transition:0.2s;
+font-size:15px;
+}
+
+.sidebar a:hover{
+background:#374151;
+color:white;
+}
+
+.sidebar i{
+width:25px;
+text-align:center;
+font-size:18px;
+}
+
+.sidebar span{
+margin-left:10px;
+white-space:nowrap;
+}
+
+/* HIDE TEXT WHEN COLLAPSED */
+
+.sidebar.collapsed span{
+display:none;
+}
+
+.sidebar.collapsed .logo span{
+display:none;
+}
+
+/* MAIN */
+
+.main{
+margin-left:240px;
+transition:0.3s;
+}
+
+.main.expanded{
+margin-left:70px;
+}
+
+/* TOPBAR */
+
+.topbar{
+background:white;
+padding:12px 20px;
+border-bottom:1px solid #e5e7eb;
+box-shadow:0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* AVATAR */
+
+.avatar{
+width:36px;
+height:36px;
+border-radius:50%;
+}
+
+/* CARDS */
+
+.card{
+border:none;
+border-radius:12px;
+box-shadow:0 4px 12px rgba(0,0,0,0.06);
+}
+
+/* STAT CARDS */
+
+.stat-card{
+border:none;
+border-radius:12px;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+transition:0.25s;
+}
+
+.stat-card:hover{
+transform:translateY(-4px);
+box-shadow:0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* CARD HEADER */
+
+.card-header{
+background:white;
+font-weight:600;
+border-bottom:1px solid #eee;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.sidebar{
+transform:translateX(-100%);
+width:240px;
+}
+
+.sidebar.active{
+transform:translateX(0);
+}
+
+.main{
+margin-left:0;
+}
+
+}
+
+/* OVERLAY */
+
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+z-index:900;
+display:none;
+}
+
+.overlay.active{
+display:block;
+}

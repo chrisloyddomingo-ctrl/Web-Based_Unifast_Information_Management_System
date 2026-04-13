@@ -13,8 +13,6 @@
   --glass-border: rgba(255,255,255,0.35);
 
   --shadow: 0 18px 50px rgba(0,0,0,0.38);
-
-  /* Fixed carousel height by breakpoint */
   --carousel-h: 700px;
 }
 
@@ -29,11 +27,18 @@ body {
 
 .orange-accent { color: var(--orange); }
 
-/* ================= HEADER (WHITE) ================= */
+/* ================= TOP BAR ================= */
 .topbar {
   background: var(--white);
   padding: 14px 0;
   border-bottom: 1px solid rgba(17,24,39,0.08);
+}
+
+/* Sticky header with nav */
+.topbar--nav{
+  position: sticky;
+  top: 0;
+  z-index: 1030;
 }
 
 .logo-img {
@@ -41,10 +46,46 @@ body {
   width: auto;
 }
 
-/* LOGIN BUTTONS */
+/* ================= PAGE NAV (in header) ================= */
+.page-nav{
+  gap: 28px;
+  flex-wrap: wrap;
+  padding: 6px 0;
+}
+
+.page-nav-link{
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 14px;
+  color: rgba(17,24,39,0.75);
+  position: relative;
+  padding: 6px 2px;
+  transition: color .18s ease;
+}
+
+.page-nav-link:hover{
+  color: var(--orange-dark);
+}
+
+.page-nav-link::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--orange);
+  transition: width .18s ease;
+}
+
+.page-nav-link:hover::after{
+  width: 100%;
+}
+
+/* ================= LOGIN BUTTONS ================= */
 .pill-btn {
-  background: rgba(243,156,18,0.12);
-  color: #8a4e00;
+  background: rgba(243, 157, 18, 0.869);
+  color: #ffffff;
   border: 1px solid rgba(243,156,18,0.35);
   border-radius: 999px;
   padding: 10px 18px;
@@ -62,7 +103,7 @@ body {
   color: #8a4e00;
 }
 
-/* ================= MAIN (BACKGROUND IMAGE) ================= */
+/* ================= MAIN BACKGROUND ================= */
 .welcome-main {
   position: relative;
   background: url('../assets/img/backgroundunifast.png') no-repeat center center;
@@ -72,7 +113,6 @@ body {
   overflow: hidden;
 }
 
-/* Readability overlay */
 .welcome-main::before {
   content: "";
   position: absolute;
@@ -89,7 +129,12 @@ body {
   z-index: 2;
 }
 
-/* ================= GLASS CARDS (BASE) ================= */
+/* Scroll helper so section titles are not hidden by sticky header */
+.section-anchor{
+  scroll-margin-top: 110px;
+}
+
+/* ================= GLASS CARDS ================= */
 .content-card{
   background: var(--glass);
   backdrop-filter: blur(18px);
@@ -111,7 +156,6 @@ body {
   box-shadow: 0 24px 65px rgba(0,0,0,0.42);
 }
 
-/* ================= TEXT (VISIBLE ON GLASS) ================= */
 .info-title{
   font-weight: 900;
   font-size: 22px;
@@ -126,13 +170,12 @@ body {
   color: rgba(255,255,255,0.86);
 }
 
-/* ================= CAROUSEL CARD (FIXED HEIGHT) ================= */
+/* ================= CAROUSEL ================= */
 .content-card--carousel{
   padding: 0 !important;
   height: var(--carousel-h);
 }
 
-/* Make carousel fill the card height (every layer) */
 .content-card--carousel .welcome-carousel,
 .content-card--carousel .carousel,
 .content-card--carousel .carousel-inner,
@@ -141,7 +184,6 @@ body {
   width: 100%;
 }
 
-/* GLASS FRAME FOR CAROUSEL */
 .welcome-carousel{
   position: relative;
   border-radius: var(--radius);
@@ -154,7 +196,6 @@ body {
   border: 1px solid rgba(255,255,255,0.28);
 }
 
-/* Force images to NEVER control height */
 .content-card--carousel .carousel-item{
   position: relative;
 }
@@ -171,7 +212,6 @@ body {
   padding: 0 !important;
 }
 
-/* Optional soft bottom gradient */
 .welcome-carousel::after{
   content: "";
   position: absolute;
@@ -180,12 +220,10 @@ body {
   pointer-events: none;
 }
 
-/* Smooth fade timing */
 .carousel.carousel-fade .carousel-item{
   transition: opacity 0.9s ease-in-out;
 }
 
-/* Modern indicators */
 .welcome-carousel .carousel-indicators [data-bs-target]{
   width: 10px;
   height: 10px;
@@ -195,26 +233,25 @@ body {
   background: rgba(255,255,255,0.25);
   opacity: 1;
 }
+
 .welcome-carousel .carousel-indicators .active{
   background: rgba(243,156,18,0.95);
   border-color: rgba(243,156,18,0.95);
 }
 
-/* ================= ✅ INFO COLUMN CENTERING (THE FIX) ================= */
+/* ================= INFO COLUMN ================= */
 .info-col{
   display: flex;
-  justify-content: center;  /* center horizontally */
-  align-items: center;      /* center vertically */
+  justify-content: center;
+  align-items: center;
 }
 
-/* On large screens, match carousel height so the card sits centered "down" */
 @media (min-width: 992px){
   .info-col{
     min-height: var(--carousel-h);
   }
 }
 
-/* ================= INFO CARD (SMALLER BOX) ================= */
 .content-card--info{
   padding: 18px 18px !important;
   width: 88%;
@@ -232,7 +269,7 @@ body {
   font-size: 13px;
 }
 
-/* Apply button smaller */
+/* ================= APPLY BUTTON ================= */
 .apply-btn{
   display: inline-flex;
   align-items: center;
@@ -260,7 +297,7 @@ body {
   color: #ffffff;
 }
 
-/* ================= FOOTER (WHITE) ================= */
+/* ================= FOOTER ================= */
 .bottombar{
   background: var(--white);
   padding: 14px 0;
@@ -268,6 +305,13 @@ body {
   border-top: 1px solid rgba(17,24,39,0.08);
   font-weight: 700;
   letter-spacing: 0.2px;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 13px;
+  color: #777;
 }
 
 /* ================= MODAL ================= */
@@ -374,12 +418,18 @@ body {
   opacity: .96;
 }
 
+/* ================= FEATURES BOX ================= */
+.feature-box{
+  border-radius: 14px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
 /* ================= RESPONSIVE ================= */
 @media (max-width: 992px){
   :root{ --carousel-h: 360px; }
   .logo-img { height: 46px; }
 
-  /* on mobile, let it flow naturally */
   .info-col{
     min-height: auto;
     align-items: stretch;
@@ -389,6 +439,14 @@ body {
     width: 100%;
     max-width: none;
     margin-top: 8px;
+  }
+
+  .page-nav{
+    gap: 16px;
+  }
+
+  .page-nav-link{
+    font-size: 13px;
   }
 }
 
@@ -401,10 +459,4 @@ body {
 @media (max-width: 576px){
   :root{ --carousel-h: 250px; }
   .pill-btn { width: 100%; text-align: center; }
-}
-.footer {
-  text-align: center;
-  margin-top: 25px;
-  font-size: 13px;
-  color: #777;
 }

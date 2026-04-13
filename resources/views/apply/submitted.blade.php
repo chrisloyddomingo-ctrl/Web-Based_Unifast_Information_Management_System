@@ -24,12 +24,12 @@
       {{-- STATUS MESSAGE --}}
       @if(isset($application) && $application->status === 'approved')
         <div class="alert success" style="margin-bottom: 12px;">
-          ✅ Congratulations! Your application has been <b>APPROVED</b>.
+          Congratulations! Your application has been <b>APPROVED</b>.
         </div>
 
       @elseif(isset($application) && $application->status === 'rejected')
         <div class="alert danger" style="margin-bottom: 12px;">
-          ❌ Sorry, your application was <b>REJECTED</b>.
+          Sorry, your application was <b>REJECTED</b>.
         </div>
 
       @elseif(isset($application) && $application->status === 'pending')
@@ -38,7 +38,7 @@
         </div>
 
         <p style="margin: 0 0 10px;">
-          Please wait for approval. Kindly monitor official announcements for further updates.
+          Please wait for approval of the CHED. Kindly monitor official announcements for further updates.
         </p>
 
         <ul style="margin: 0; padding-left: 18px;">
@@ -50,7 +50,7 @@
       @else
         {{-- if no record found or status is empty/unknown --}}
         <div class="alert warning" style="margin-bottom: 12px;">
-          ⏳ Application record not found or status not set yet. Please contact the admin.
+           Application record not found or status not set yet. Please contact the admin.
         </div>
       @endif
 

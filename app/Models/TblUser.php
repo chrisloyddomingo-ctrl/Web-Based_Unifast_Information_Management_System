@@ -12,39 +12,43 @@ class TblUser extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * The table associated with the model.
-     *
-     * @var string
+     * Table name
      */
     protected $table = 'tblusers';
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
+     * Primary key
+     * - If your PK is NOT "id", change this (example: user_id)
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $primaryKey = 'id';
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
+     * If tblusers does NOT have created_at and updated_at, keep this false.
+     * If it has timestamps, set to true.
      */
+    public $timestamps = true;
+
+    /**
+     * Mass assignable columns
+     */
+    protected $fillable = [
+    'name',
+    'email',
+    'password',
+    'role',
+    'phone',
+    'address',
+    'status',
+    'avatar',
+    ];
+
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_active' => 'boolean',
     ];
 }

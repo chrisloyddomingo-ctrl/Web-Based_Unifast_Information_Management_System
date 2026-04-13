@@ -17,13 +17,15 @@ body {
     border-color: #e66e00;
 }
 
-.logo-img {
-    height: 250px;
+/* Header logos should match welcome page */
+.topbar .logo-img {
+    height: 45px;
     width: auto;
+    object-fit: contain;
 }
 
 @media (max-width: 768px) {
-    .logo-img {
-        height: 55px;
+    .topbar .logo-img {
+        height: 35px;
     }
 }

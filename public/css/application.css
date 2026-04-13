@@ -269,3 +269,24 @@ select:focus {
     width: 100%;
   }
 }
+.hidden
+{ 
+  display: none; 
+}
+.modal-body {
+    padding-top: 10px;
+}
+.modal-title {
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+.modal-header {
+    border-bottom: 0;
+    border-top-left-radius: .3rem;
+    border-top-right-radius: .3rem;
+}
+
+.modal-content {
+    border-radius: .3rem;
+    overflow: hidden;
+}

@@ -25,8 +25,11 @@ class ApplicationController extends Controller
             'ext_name' => ['nullable','string','max:20'],
 
             'program_name' => ['required','string','max:150'],
-            'program_name_other' => ['nullable','string','max:150'],
+            'program_name_other' => ['required_if:program_name,__OTHER__','nullable','string','max:150'],
             'year_level' => ['required','string','max:50'],
+
+            'first_generation' => ['required','in:0,1'],
+            'parents_monthly_income' => ['required','in:below_5000,5000_10000,10000_20000,20000_40000,above_40000'],
 
             'father_last_name' => ['required','string','max:100'],
             'father_given_name' => ['required','string','max:100'],
@@ -45,81 +48,74 @@ class ApplicationController extends Controller
             'indigenous_group' => ['nullable','string','max:255'],
         ]);
 
-        // If they chose "Other", replace program_name with the typed value
+        // If they chose "Other", use the typed value as the program_name
         if (($validated['program_name'] ?? '') === '__OTHER__') {
-            $request->validate([
-                'program_name_other' => ['required','string','max:150'],
-            ]);
             $validated['program_name'] = $validated['program_name_other'];
         }
 
-        // ✅ IMPORTANT: default status kapag bagong submit
-        // (since nag-add ka na ng status column, pero safe pa rin ito)
+        // Remove field not needed in DB
+        unset($validated['program_name_other']);
+
+        // Default status when newly submitted
         $validated['status'] = 'pending';
 
-        // ✅ Save application
+        // Save
         $application = Application::create($validated);
 
-        // ✅ Store sa session para alam natin kung anong record ang iche-check sa submitted page
+        // Session for submitted page
         session([
             'submitted' => true,
             'submitted_student_id' => $application->student_id,
         ]);
 
-        // ✅ Redirect to submitted page
         return redirect()->route('apply.submitted');
     }
 
     public function submitted()
     {
-        // ✅ Prevent direct access
         if (!session()->has('submitted') || !session()->has('submitted_student_id')) {
             return redirect()->route('apply.create');
         }
 
         $studentId = session('submitted_student_id');
-
-        // ✅ Kunin yung application record para makita status
         $application = Application::where('student_id', $studentId)->first();
 
-        // ✅ Pass application to blade
         return view('apply.submitted', compact('application'));
     }
+
     public function approve(Request $request)
     {
-    $request->validate([
-        'id' => ['required', 'integer', 'exists:applications,id'],
-    ]);
+        $request->validate([
+            'id' => ['required', 'integer', 'exists:applications,id'],
+        ]);
 
-    $app = Application::findOrFail($request->id);
+        $app = Application::findOrFail($request->id);
 
-    // Optional: only allow if pending
-    if (($app->status ?? 'pending') !== 'pending') {
-        return back()->with('error', 'This application is no longer pending.');
-    }
+        if (($app->status ?? 'pending') !== 'pending') {
+            return back()->with('error', 'This application is no longer pending.');
+        }
 
-    $app->status = 'approved';
-    $app->save();
+        $app->status = 'approved';
+        $app->save();
 
-    return back()->with('success', 'Application approved successfully.');
+        return back()->with('success', 'Application approved successfully.');
     }
 
     public function reject(Request $request)
     {
-    $request->validate([
-        'id' => ['required', 'integer', 'exists:applications,id'],
-    ]);
+        $request->validate([
+            'id' => ['required', 'integer', 'exists:applications,id'],
+        ]);
 
-    $app = Application::findOrFail($request->id);
+        $app = Application::findOrFail($request->id);
 
-    // Optional: only allow if pending
-    if (($app->status ?? 'pending') !== 'pending') {
-        return back()->with('error', 'This application is no longer pending.');
-    }
+        if (($app->status ?? 'pending') !== 'pending') {
+            return back()->with('error', 'This application is no longer pending.');
+        }
 
-    $app->status = 'rejected';
-    $app->save();
+        $app->status = 'rejected';
+        $app->save();
 
-    return back()->with('success', 'Application rejected successfully.');
+        return back()->with('success', 'Application rejected successfully.');
     }
 }

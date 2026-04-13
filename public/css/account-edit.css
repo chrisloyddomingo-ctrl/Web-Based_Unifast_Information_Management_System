@@ -1,0 +1,18 @@
+.profile-avatar-preview{
+    width: 10px !important;
+    height: 10px !important;
+    max-width: 10px !important;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+.profile-user-main-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+
+.password-strength-progress {
+    height: 8px;
+}

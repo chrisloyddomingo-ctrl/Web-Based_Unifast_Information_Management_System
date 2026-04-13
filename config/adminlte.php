@@ -64,7 +64,7 @@ return [
     */
 
     'logo' => '<b>Admin</b>UniFAST',
-    'logo_img' => 'vendor/adminlte/dist/img/logopng.png',
+    'logo_img' => 'assets/img/unifastLogoclear.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -86,7 +86,7 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/logopng.png',
+            'path' => 'vendor/adminlte/dist/img/unifastLogoclear.png',
             'alt' => 'Auth Logo',
             'class' => '',
             
@@ -189,17 +189,17 @@ return [
     |
     */
 
-    'classes_body' => '',
-    'classes_brand' => '',
-    'classes_brand_text' => '',
+    'classes_body' => 'layout-fixed text-sm',
+    'classes_brand' => 'shadow-sm',
+    'classes_brand_text' => 'text-primary font-weight-bold',
     'classes_content_wrapper' => '',
-    'classes_content_header' => '',
-    'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
-    'classes_sidebar_nav' => '',
-    'classes_topnav' => '',
+    'classes_content_header' => 'pb-2',
+    'classes_content' => 'px-3',
+    'classes_sidebar' => 'backgroundcolor',
+    'classes_sidebar_nav' => 'nav-flat nav-child-indent nav-compact',
+    'classes_topnav' => 'navbar-white navbar-light shadow-sm',
     'classes_topnav_nav' => 'navbar-expand',
-    'classes_topnav_container' => 'container',
+    'classes_topnav_container' => 'container-fluid',
 
     /*
     |--------------------------------------------------------------------------
@@ -255,9 +255,10 @@ return [
     |
     */
 
-    'use_route_url' => false,
+    'use_route_url' => true,
     'dashboard_url' => 'home',
     'logout_url' => 'logout',
+    'logout_method' => 'POST',
     'login_url' => 'login',
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
@@ -297,71 +298,101 @@ return [
     |
     */
 
-    'menu' => [
-        // Navbar items:
-
-        //dashboard//
-        [
-            'text' => 'Dashboard',
-            'url' => 'home',
-            'icon' => 'fas fa-tachometer-alt',
-            'label' => null,
-            'label_color' => 'success',
-        ],
-        //mga nag apply//
-        [
-            'text' => 'Pending Applications',
-            'url' => 'applications',
-            'icon' => 'far fa-fw fa-file',
-            'label' => null,
-            'label_color' => 'success',
-        ],
-        //Listahan ng mga grantees//
-         [
-            'text' => 'Grantees List',
-            'url' => 'grantees',
-            'icon' => 'fas fa-users',
-            'label' => null,
-            'label_color' => 'success',
-        ],
-        //Attendance//
-        [
-            'text' => 'Attendance',
-            'url' => 'menu_pagination',
-            'icon' => 'fas fa-calendar-check',
-            'label' => 'to be added',
-            'label_color' => 'success',
-        ],
-        //search and filter list of grantees(by grant, type, penalties)//
-        [
-            'text' => 'Reports',
-            'url' => 'menu_pagination',
-            'icon' => 'fas fa-chart-bar',
-            'label' => 'to be added',
-            'label_color' => 'success',
-        ],
-        //Backup and Restore//
-        [
-            'text' => 'Backup and Restore',
-            'url' => 'menu_pagination',
-            'icon' => 'fas fa-database',
-            'label' => 'to be added',
-            'label_color' => 'success',
-        ],
-        //settings//
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-       
+   'menu' => [
+    [
+        'text' => 'Dashboard',
+        'url' => 'home',
+        'icon' => 'fas fa-tachometer-alt',
     ],
+    [
+        'text' => 'Pending Applications',
+        'url' => 'applications',
+        'icon' => 'far fa-fw fa-file',
+    ],
+    [
+        'text' => 'All Grantees List',
+        'url' => 'grantees',
+        'icon' => 'fas fa-users',
+    ],
+    [
+        'text' => 'Attendance',
+        'url' => 'attendance',
+        'icon' => 'fas fa-calendar-check',
+    ],
+    [
+        'text' => 'Reports',
+        'url' => 'reports',
+        'icon' => 'fas fa-chart-bar',
+    ],
+        [
+        'text' => 'Bill Statements',
+        'url' => 'disbursement',
+        'icon' => 'fas fa-file-invoice-dollar ',
+    ],
+
+    [
+        'text' => 'SETTINGS',
+        'icon' => 'fas fa-cog',
+        'submenu' => [
+            [
+                'text' => 'User Accounts',
+                'icon' => 'fas fa-users-cog',
+                'submenu' => [
+                    [
+                        'text' => 'View All User Accounts',
+                        'route' => 'users.index',
+                        'icon' => 'fas fa-list',
+                    ],
+                    [
+                        'text' => 'Add New User Account',
+                        'route' => 'users.create',
+                        'icon' => 'fas fa-user-plus',
+                    ],
+                ],
+            ],
+
+            [
+                'text' => 'Semester',
+                'icon' => 'fas fa-calendar-alt',
+                'submenu' => [
+                    [
+                        'text' => 'View All Semester',
+                        'route' => 'semesters.index',
+                        'icon' => 'fas fa-eye',
+                    ],
+                    [
+                        'text' => 'Add New Semester',
+                        'route' => 'semesters.create',
+                        'icon' => 'fas fa-plus',
+                    ],
+                ],
+            ],
+
+            [
+                'text' => 'Database',
+                'icon' => 'fas fa-database',
+                'submenu' => [
+                    [
+                        'text' => 'Create Backup',
+                        'route' => 'fileupload_pagination',
+                        'icon' => 'fas fa-plus',
+                    ],
+                    [
+                        'text' => 'Restore Backup',
+                        'route' => 'fileupload_pagination',
+                        'icon' => 'fas fa-upload',
+                    ],
+                ],
+            ],
+
+            [
+                'text' => 'Manage System Info',
+                'route' => 'fileupload_pagination',
+                'icon' => 'fas fa-info-circle',
+            ],
+        ],
+    ],
+],
 
     /*
     |--------------------------------------------------------------------------
@@ -444,7 +475,7 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
