@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Application;
+use App\Models\Semester;
 
 class ApplicationController extends Controller
 {
@@ -48,21 +49,31 @@ class ApplicationController extends Controller
             'indigenous_group' => ['nullable','string','max:255'],
         ]);
 
-        // If they chose "Other", use the typed value as the program_name
         if (($validated['program_name'] ?? '') === '__OTHER__') {
             $validated['program_name'] = $validated['program_name_other'];
         }
 
-        // Remove field not needed in DB
         unset($validated['program_name_other']);
 
-        // Default status when newly submitted
-        $validated['status'] = 'pending';
+        $currentSemester = Semester::where('is_current', true)->first();
 
-        // Save
+        if (!$currentSemester) {
+            return back()
+                ->withInput()
+                ->with('error', 'No current semester is set. Please contact the administrator.');
+        }
+
+        if ($currentSemester->application_status !== 'open') {
+            return back()
+                ->withInput()
+                ->with('error', 'Applications are currently closed for the active semester.');
+        }
+
+        $validated['status'] = 'pending';
+        $validated['semester_id'] = $currentSemester->id;
+
         $application = Application::create($validated);
 
-        // Session for submitted page
         session([
             'submitted' => true,
             'submitted_student_id' => $application->student_id,

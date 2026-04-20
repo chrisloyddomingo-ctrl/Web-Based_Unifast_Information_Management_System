@@ -45,6 +45,11 @@
         <li>Click <b>Submit</b> once finished. You will be redirected to a confirmation page.</li>
       </ol>
     </section>
+    @if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
 
     <form method="POST" action="{{ route('apply.store') }}" novalidate>
       @csrf

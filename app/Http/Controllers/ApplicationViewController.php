@@ -16,13 +16,22 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use App\Models\Semester;
 
 class ApplicationViewController extends Controller
 {
     public function index()
     {
-        $applications = Application::orderByDesc('id')->get();
-        return view('application_list', compact('applications'));
+        $viewingSemester = Semester::where('is_viewing', true)->first();
+
+        $applications = Application::with('semester')
+            ->when($viewingSemester, function ($query) use ($viewingSemester) {
+                $query->where('semester_id', $viewingSemester->id);
+            })
+            ->orderByDesc('id')
+            ->get();
+
+        return view('application_list', compact('applications', 'viewingSemester'));
     }
 
     public function store(Request $request)

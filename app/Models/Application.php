@@ -34,6 +34,7 @@ class Application extends Model
         'status',
         'first_generation',
         'parents_monthly_income',
+        'semester_id',
     ];
 
     public function grantee()
@@ -44,5 +45,10 @@ class Application extends Model
     public function student()
     {
         return $this->belongsTo(StudentAccount::class, 'student_id', 'student_id');
+    }
+    
+    public function semester()
+    {
+        return $this->belongsTo(Semester::class, 'semester_id');
     }
 }

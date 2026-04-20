@@ -244,14 +244,24 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     */
     Route::get('/semesters', [SemesterController::class, 'index'])->name('semesters.index');
+
     Route::get('/semesters/create', [SemesterController::class, 'create'])->name('semesters.create');
-    Route::post('/semesters/store', [SemesterController::class, 'store'])->name('semesters.store');
+
+    Route::post('/semesters', [SemesterController::class, 'store'])->name('semesters.store');
+
     Route::get('/semesters/{id}/edit', [SemesterController::class, 'edit'])->name('semesters.edit');
+
     Route::put('/semesters/{id}', [SemesterController::class, 'update'])->name('semesters.update');
+
     Route::delete('/semesters/{id}', [SemesterController::class, 'destroy'])->name('semesters.destroy');
+
     Route::post('/semesters/{id}/set-current', [SemesterController::class, 'setCurrent'])->name('semesters.setCurrent');
+
     Route::post('/semesters/{id}/open-application', [SemesterController::class, 'openApplication'])->name('semesters.openApplication');
+
     Route::post('/semesters/{id}/close-application', [SemesterController::class, 'closeApplication'])->name('semesters.closeApplication');
+
+    Route::post('/semesters/{id}/set-viewing', [SemesterController::class, 'setViewing'])->name('semesters.setViewing');
 
     /*
     |-------------------------------------------------------------------------- |

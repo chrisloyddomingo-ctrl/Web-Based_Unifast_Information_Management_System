@@ -24,7 +24,7 @@ class SemesterController extends Controller
             'semester_name' => 'required|string|max:255',
             'school_year' => 'required|string|max:255',
             'start_date' => 'nullable|date',
-            'end_date' => 'nullable|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
         ]);
 
         Semester::create([
@@ -36,7 +36,9 @@ class SemesterController extends Controller
             'application_status' => 'closed',
         ]);
 
-        return redirect()->route('semesters.index')->with('success', 'Semester added successfully.');
+        return redirect()
+            ->route('semesters.index')
+            ->with('success', 'Semester added successfully.');
     }
 
     public function edit($id)
@@ -53,7 +55,7 @@ class SemesterController extends Controller
             'semester_name' => 'required|string|max:255',
             'school_year' => 'required|string|max:255',
             'start_date' => 'nullable|date',
-            'end_date' => 'nullable|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
         ]);
 
         $semester->update([
@@ -63,7 +65,9 @@ class SemesterController extends Controller
             'end_date' => $request->end_date,
         ]);
 
-        return redirect()->route('semesters.index')->with('success', 'Semester updated successfully.');
+        return redirect()
+            ->route('semesters.index')
+            ->with('success', 'Semester updated successfully.');
     }
 
     public function destroy($id)
@@ -71,27 +75,34 @@ class SemesterController extends Controller
         $semester = Semester::findOrFail($id);
 
         if ($semester->is_current) {
-            return redirect()->route('semesters.index')->with('error', 'Current semester cannot be deleted.');
+            return redirect()
+                ->route('semesters.index')
+                ->with('error', 'Current semester cannot be deleted.');
         }
 
         $semester->delete();
 
-        return redirect()->route('semesters.index')->with('success', 'Semester deleted successfully.');
+        return redirect()
+            ->route('semesters.index')
+            ->with('success', 'Semester deleted successfully.');
     }
 
     public function setCurrent($id)
     {
         $semester = Semester::findOrFail($id);
 
-        // I-reset muna lahat
-        Semester::query()->update(['is_current' => false]);
-
-        // Itong napili lang ang magiging current
-        $semester->update([
-            'is_current' => true
+        Semester::query()->update([
+            'is_current' => false,
+            'application_status' => 'closed',
         ]);
 
-        return redirect()->route('semesters.index')->with('success', 'Current semester updated successfully.');
+        $semester->update([
+            'is_current' => true,
+        ]);
+
+        return redirect()
+            ->route('semesters.index')
+            ->with('success', 'Current semester updated successfully.');
     }
 
     public function openApplication($id)
@@ -99,18 +110,22 @@ class SemesterController extends Controller
         $semester = Semester::findOrFail($id);
 
         if (!$semester->is_current) {
-            return redirect()->route('semesters.index')->with('error', 'Only the current semester can open applications.');
+            return redirect()
+                ->route('semesters.index')
+                ->with('error', 'Only the current semester can open applications.');
         }
 
         Semester::query()->update([
-            'application_status' => 'closed'
+            'application_status' => 'closed',
         ]);
 
         $semester->update([
             'application_status' => 'open',
         ]);
 
-        return redirect()->route('semesters.index')->with('success', 'Application opened successfully.');
+        return redirect()
+            ->route('semesters.index')
+            ->with('success', 'Application opened successfully.');
     }
 
     public function closeApplication($id)
@@ -121,6 +136,25 @@ class SemesterController extends Controller
             'application_status' => 'closed',
         ]);
 
-        return redirect()->route('semesters.index')->with('success', 'Application closed successfully.');
+        return redirect()
+            ->route('semesters.index')
+            ->with('success', 'Application closed successfully.');
+    }
+
+    public function setViewing($id)
+    {
+        $semester = Semester::findOrFail($id);
+
+        Semester::query()->update([
+            'is_viewing' => false,
+        ]);
+
+        $semester->update([
+            'is_viewing' => true,
+        ]);
+
+        return redirect()
+            ->route('semesters.index')
+            ->with('success', 'Success viewing semester for '.$semester->school_year.' '.$semester->semester_name.'.');
     }
 }

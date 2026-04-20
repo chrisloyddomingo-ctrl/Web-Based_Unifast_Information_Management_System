@@ -41,6 +41,13 @@
 @stop
 
 @section('content')
+    @if(isset($viewingSemester) && $viewingSemester)
+        <div class="alert alert-info">
+            <i class="fas fa-eye mr-2"></i>
+            Viewing Semester:
+            <strong>{{ $viewingSemester->semester_name }} - {{ $viewingSemester->school_year }}</strong>
+        </div>
+    @endif
 
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show app-alert app-alert-success" role="alert">
@@ -144,6 +151,7 @@
                                     <th style="min-width: 120px;">Student ID</th>
                                     <th style="min-width: 220px;">Name</th>
                                     <th style="min-width: 80px;">Sex</th>
+                                    <th style="min-width: 160px;">Semester</th>
                                     <th style="min-width: 180px;">Program</th>
                                     <th style="min-width: 110px;">Year Level</th>
                                     <th style="min-width: 130px;">Contact</th>
@@ -170,6 +178,20 @@
                                         </td>
 
                                         <td class="text-center">{{ $app->sex ?? 'N/A' }}</td>
+
+                                        <td class="text-center">
+                                            @if($app->semester)
+                                                <div class="font-weight-bold">
+                                                    {{ $app->semester->semester_name }}
+                                                </div>
+                                                <small class="text-muted">
+                                                    {{ $app->semester->school_year }}
+                                                </small>
+                                            @else
+                                                <span class="text-muted">N/A</span>
+                                            @endif
+                                        </td>
+
                                         <td>{{ $app->program_name ?? 'N/A' }}</td>
                                         <td class="text-center">{{ $app->year_level ?? 'N/A' }}</td>
                                         <td>{{ $app->contact_number ?? 'N/A' }}</td>
