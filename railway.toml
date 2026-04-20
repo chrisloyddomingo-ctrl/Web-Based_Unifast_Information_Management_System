@@ -3,6 +3,3 @@ builder = "NIXPACKS"
 
 [php]
 extensions = ["gd"]
-
-[deploy]
-startCommand = "/start-container.sh"
