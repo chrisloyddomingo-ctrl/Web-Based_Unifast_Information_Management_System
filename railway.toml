@@ -3,3 +3,5 @@ builder = "NIXPACKS"
 
 [php]
 extensions = ["gd"]
+
+# Trigger new build
