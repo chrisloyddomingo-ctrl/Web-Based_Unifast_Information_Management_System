@@ -8,15 +8,19 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('student_accounts', function (Blueprint $table) {
-            $table->boolean('is_temp_password')->default(true)->after('password');
-        });
+        if (!Schema::hasColumn('student_accounts', 'is_temp_password')) {
+            Schema::table('student_accounts', function (Blueprint $table) {
+                $table->boolean('is_temp_password')->default(true)->after('password');
+            });
+        }
     }
 
     public function down(): void
     {
-        Schema::table('student_accounts', function (Blueprint $table) {
-            $table->dropColumn('is_temp_password');
-        });
+        if (Schema::hasColumn('student_accounts', 'is_temp_password')) {
+            Schema::table('student_accounts', function (Blueprint $table) {
+                $table->dropColumn('is_temp_password');
+            });
+        }
     }
 };
