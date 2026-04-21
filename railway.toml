@@ -1,0 +1,8 @@
+[php]
+extensions = ["gd"][build]
+builder = "NIXPACKS"
+
+[php]
+extensions = ["gd"]
+
+# Trigger new build
