@@ -1,6 +1,5 @@
 [build]
 builder = "NIXPACKS"
-buildCommand = "composer install && php artisan migrate --force"
 
 [php]
 extensions = ["gd"]
