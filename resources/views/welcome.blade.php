@@ -28,7 +28,7 @@
           </h2>
 
           <div class="welcome-logos">
-            <img src="{{ asset('assets/img/ifsu.png') }}" alt="IFSU" class="welcome-logo">
+            <img src="{{ asset('assets/img/Ifsu.png') }}" alt="IFSU" class="welcome-logo">
             <img src="{{ asset('assets/img/unifastLogoclear.png') }}" alt="Ched Unifast" class="welcome-logo">
           </div>
 
