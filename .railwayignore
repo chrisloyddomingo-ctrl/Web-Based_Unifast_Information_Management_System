@@ -1,7 +1,6 @@
 .git/
 .github/
 node_modules/
-vendor/
 tests/
 storage/framework/cache/
 storage/framework/sessions/
