@@ -56,7 +56,7 @@
 
         <!-- LEFT: Logos -->
         <div class="col-12 col-lg-3 d-flex justify-content-center justify-content-lg-start align-items-center">
-          <img src="{{ asset('assets/img/ifsu.png') }}" class="logo-img me-3" alt="IFSU Logo">
+          <img src="{{ asset('assets/img/Ifsu.png') }}" class="logo-img me-3" alt="IFSU Logo">
           <img src="{{ asset('assets/img/unifastLogoclear.png') }}" class="logo-img" alt="UNIFAST Logo">
         </div>
 
