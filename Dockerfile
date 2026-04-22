@@ -69,4 +69,4 @@ RUN mkdir -p /var/log/supervisor
 
 EXPOSE 8000
 
-CMD ["sh", "-c", "unset PORT && php artisan migrate --force && supervisord -c /etc/supervisor/conf.d/supervisord.conf"]
+CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
