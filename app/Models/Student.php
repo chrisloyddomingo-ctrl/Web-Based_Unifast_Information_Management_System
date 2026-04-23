@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class StudentAccount extends Authenticatable
+class Student extends Authenticatable
 {
     use Notifiable;
 
-    protected $table = 'student_accounts'; // palitan lang kung iba ang tunay na table name
+    protected $table = 'student_accounts';
 
     protected $fillable = [
         'student_id',
