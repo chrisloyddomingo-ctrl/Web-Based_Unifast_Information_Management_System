@@ -62,6 +62,34 @@ Route::prefix('student')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
+| ADMIN SEEDER ROUTE
+|--------------------------------------------------------------------------
+|
+| Visit /seed-admin to create the default admin account. This route is
+| only active when no users exist in the database, ensuring it cannot
+| be used to overwrite an existing setup.
+|
+*/
+
+Route::get('/seed-admin', function () {
+    if (\App\Models\TblUser::count() > 0) {
+        return response()->json([
+            'message' => 'Seeding skipped: users already exist in the database.',
+        ], 403);
+    }
+
+    (new AdminUserSeeder())->run();
+
+    return response()->json([
+        'message'  => 'Admin user seeded successfully.',
+        'email'    => 'admin@unifast.com',
+        'password' => 'Admin@1234',
+        'note'     => 'Please change the default password immediately after logging in.',
+    ], 201);
+});
+
+/*
+|--------------------------------------------------------------------------
 | DEFAULT LARAVEL AUTH
 |--------------------------------------------------------------------------
 |
