@@ -13,14 +13,18 @@ class AdminUserSeeder extends Seeder
      */
     public function run(): void
     {
+        $now = now();
+
         DB::table('tblusers')->updateOrInsert(
             ['email' => 'admin@example.com'],
             [
-                'name'     => 'Admin',
-                'email'    => 'admin@example.com',
-                'password' => Hash::make('password'),
-                'role'     => 'admin',
-                'status'   => 'active',
+                'name'       => 'Admin',
+                'email'      => 'admin@example.com',
+                'password'   => Hash::make('password'),
+                'role'       => 'admin',
+                'status'     => 'active',
+                'created_at' => $now,
+                'updated_at' => $now,
             ]
         );
     }
