@@ -14,7 +14,7 @@ class TblUser extends Authenticatable
     /**
      * Table name
      */
-    protected $table = 'tblusers';
+    protected $table = 'users';
 
     /**
      * Primary key
