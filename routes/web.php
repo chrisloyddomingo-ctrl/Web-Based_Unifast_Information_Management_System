@@ -18,6 +18,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\GranteePrintController;
+use Database\Seeders\StudentAccountSeeder;
 
 Route::get('/', function () {
     return view('welcome');
@@ -85,6 +86,40 @@ Route::get('/seed-admin', function () {
         'email'    => 'admin@unifast.com',
         'password' => 'Admin@1234',
         'note'     => 'Please change the default password immediately after logging in.',
+    ], 201);
+});
+
+/*
+|--------------------------------------------------------------------------
+| STUDENT SEEDER ROUTE
+|--------------------------------------------------------------------------
+|
+| Visit /seed-students to create test student accounts. This route is
+| only active when no student accounts exist in the database, ensuring
+| it cannot be used to overwrite an existing setup.
+|
+*/
+
+Route::get('/seed-students', function () {
+    if (\App\Models\StudentAccount::count() > 0) {
+        return response()->json([
+            'message' => 'Seeding skipped: student accounts already exist in the database.',
+        ], 403);
+    }
+
+    (new StudentAccountSeeder())->run();
+
+    return response()->json([
+        'message'  => 'Student accounts seeded successfully.',
+        'password' => 'Student@1234',
+        'note'     => 'Please change the default passwords immediately after logging in.',
+        'accounts' => [
+            ['student_id' => 'STU001', 'email' => 'student1@unifast.com', 'name' => 'Juan dela Cruz',    'course' => 'BS Information Technology', 'year_level' => '2nd Year'],
+            ['student_id' => 'STU002', 'email' => 'student2@unifast.com', 'name' => 'Maria Santos',      'course' => 'BS Education',             'year_level' => '3rd Year'],
+            ['student_id' => 'STU003', 'email' => 'student3@unifast.com', 'name' => 'Jose Reyes',        'course' => 'BS Nursing',               'year_level' => '1st Year'],
+            ['student_id' => 'STU004', 'email' => 'student4@unifast.com', 'name' => 'Ana Gonzales',      'course' => 'BS Accountancy',           'year_level' => '4th Year'],
+            ['student_id' => 'STU005', 'email' => 'student5@unifast.com', 'name' => 'Pedro Villanueva',  'course' => 'BS Engineering',           'year_level' => '2nd Year'],
+        ],
     ], 201);
 });
 
