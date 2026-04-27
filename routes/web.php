@@ -313,12 +313,29 @@ Route::middleware('auth')->group(function () {
     Route::post('/grantees/print-preview', [GranteePrintController::class, 'printPreview'])
         ->name('grantees.print.preview');
 
-    /*
-    |--------------------------------------------------------------------------
-    | BILL STATEMENT
-    |--------------------------------------------------------------------------
-    */
-    Route::get('/disbursement', function () {
-        return view('billstatement.bill_statement');
-    })->name('disbursement');    
+/*
+|--------------------------------------------------------------------------
+| BILL STATEMENT
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/disbursement', function () {
+    return view('billstatement.bill_statement');
+})->name('disbursement');
+
+Route::get('/tes-continuing', function () {
+    return view('billstatement.tes_continuing');
+})->name('tes.continuing');
+
+Route::get('/tes-new', function () {
+    return view('billstatement.tes_new');
+})->name('tes.new');
+
+Route::get('/tdp-continuing', function () {
+    return view('billstatement.tdp_continuing');
+})->name('tdp.continuing');
+
+Route::get('/tdp-new', function () {
+    return view('billstatement.tdp_new');
+})->name('tdp.new');
 });
